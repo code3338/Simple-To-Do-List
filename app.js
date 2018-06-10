@@ -88,16 +88,15 @@ addBtn.addEventListener("click", function() {
   description.value = ""
 
   saveBtn.addEventListener("click", function() {
-     for(let i = 0;i < array.length; i++) {
-        array[i] =({description:array[i].description,
-                    completed:input.checked,
-                    priority:select.value})
-        array.splice(array[i],1, array[i]);
-      }
-        console.log(array);
-        return array;
-    })
+    for(let i = 0;i < array.length; i++) {
+      array[i] = ({description:array[i].description,
+                   completed:input.checked,
+                   priority:select.value})
+      console.log(array);
+      return array;
+    }
 
+   })
 
 
   /*sort button*/
