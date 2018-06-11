@@ -70,6 +70,7 @@ addBtn.addEventListener("click", function() {
   /*save button*/
   let saveBtnText = document.createTextNode("save");
   let saveBtn = document.createElement("button");
+  saveBtn.setAttribute("data-item", array.length) /*b/c this happens first, the button will be 0, b/c before we push the item.*/
   saveBtn.appendChild(saveBtnText);
   listItem.appendChild(saveBtn);
 
@@ -81,51 +82,47 @@ addBtn.addEventListener("click", function() {
   array.push({description:description.value,
               completed:input.checked,
               priority:select.value})
-  console.log(array);
  console.log(orderedList);
 
   /*clear out items box after select add button*/
   description.value = ""
 
-  saveBtn.addEventListener("click", function() {
-    for(let i = 0;i < array.length; i++) {
-      array[i] = ({description:array[i].description,
-                   completed:input.checked,
-                   priority:select.value})
-      console.log(array);
-      return array;
-    }
 
+  saveBtn.addEventListener("click", function(e) {
+      let index = parseInt(e.target.getAttribute("data-item"));
+       console.log(index);
+         array[index] = ({description:array[index].description,
+                          completed:input.checked,
+                           priority:select.value
+         })
+         console.log(array);
    })
 
-
-  /*sort button*/
-  // sortBtn.addEventListener("click", function() {
-  //   console.log(array);
-  //
-  //   // array.innerHTML = "";
-  //   for(let i = 0;array.length; i++) {
-  //     console.log(array[i].priority);
-  //      if(array[i].priority == "Low") {
-  //        array.priority = 1;
-  //      }
-  //      else if (array[i].priority == "Moderate") {
-  //         array.priority = 2;
-  //      }
-  //      else if(array[i].priority == "High") {
-  //         array.priority = 3;
-  //      }
-  //   }
-  //    array.priority.sort(function(a, b) {
-  //      return b - a
-  //    });
-  //    orderedList.innerHTML = array;
-  //  })
-     /*sort, sort all items in array, destroy whatever dom(or list) is there, destroy list, and reremnder list in new order.To show up in. webStorage and localStorage.*/
-     /*a and b are just comparing any two items. a.priority = 1 */
-
-
-
  })
+  /*sort button*/
+  sortBtn.addEventListener("click", function() {
+     for(let i = 0;array.length; i++) {
+       if(array[i].priority == "Low") {
+         array[i].priority = 1;
+       }
+       else if (array[i].priority == "Moderate") {
+          array[i].priority = 2;
+       }
+       else if(array[i].priority == "High") {
+          array[i].priority = 3;
+       }
+       console.log(array[i].priority);
+     }
+    array.sort(function(a,b) {
+      return b-a
+    })
+     orderedList.innerHTML = array;
+     console.log(array);
+   })
+
+     /*sort, sort all items in array, destroy whatever dom(or list) is there, destroy list, and reremnder list in new order.To show up in. webStorage and localStorage.*/
+     /*a and b are just comparing any two items. a.priority = 1
+
+ })*/
 
 /*Sort Button EventListener*/
