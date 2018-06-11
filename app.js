@@ -17,8 +17,7 @@ addBtn.addEventListener("click", function() {
   /*Description value appended to orderedList*/
   let textNode = document.createTextNode(description.value);
   let descriptionPara = document.createElement("p");
-    descriptionPara.setAttribute("class", "description2");
-    // descriptionPara.setAttribute("value", "descriptionPara")
+  descriptionPara.setAttribute("class", "description2");
   descriptionPara.appendChild(textNode);
   listItem.appendChild(descriptionPara);
   orderedList.appendChild(listItem);
@@ -67,10 +66,10 @@ addBtn.addEventListener("click", function() {
   span2.appendChild(select);
   listItem.appendChild(span2);
 
-  /*save button*/
+  /*Save button added to each item created.*/
   let saveBtnText = document.createTextNode("save");
   let saveBtn = document.createElement("button");
-  saveBtn.setAttribute("data-item", array.length) /*b/c this happens first, the button will be 0, b/c before we push the item.*/
+  saveBtn.setAttribute("data-item", array.length)
   saveBtn.appendChild(saveBtnText);
   listItem.appendChild(saveBtn);
 
@@ -78,42 +77,39 @@ addBtn.addEventListener("click", function() {
   orderedList.appendChild(listItem);
 
 
-  /*Push the user's input to the To Do List*/
+  /*Push the user's To Do item to the To Do List*/
   array.push({description:description.value,
               completed:input.checked,
               priority:select.value})
- console.log(orderedList);
 
-  /*clear out items box after select add button*/
+  /*Clear out add To Do Input box after user select's add button*/
   description.value = ""
 
-
+/*Save button event listener: Updates to do item's input fields. */
   saveBtn.addEventListener("click", function(e) {
       let index = parseInt(e.target.getAttribute("data-item"));
-       console.log(index);
          array[index] = ({description:array[index].description,
                           completed:input.checked,
                            priority:select.value
          })
-         console.log(array);
-   })
+  })
 
-
- })
+/*Sort button sorts To Do items based on priority.*/
+})
  sortBtn.addEventListener("click", function() {
    orderedList.innerHTML = ""
    array.sort(function(a,b) {
      return b.priority - a.priority;
    })
-   console.log(array);
    for(let i = 0; i < array.length; i++) {
      let listItem = document.createElement("li");
 
      /*Description value appended to orderedList*/
      let textNode = document.createTextNode(array[i].description);
      let descriptionPara = document.createElement("p");
-       descriptionPara.setAttribute("class", "description2");
-       // descriptionPara.setAttribute("value", "descriptionPara")
+     descriptionPara.setAttribute("class", "description2");
+
+    // descriptionPara.setAttribute("value", "descriptionPara")
      descriptionPara.appendChild(textNode);
      listItem.appendChild(descriptionPara);
      orderedList.appendChild(listItem);
@@ -132,7 +128,7 @@ addBtn.addEventListener("click", function() {
      listItem.appendChild(span1);
      orderedList.appendChild(listItem);
 
-     /*Priority dropdown box added to each item created*/
+     /*Priority dropdown box added to each item created.input fields updated to current values.*/
      let label2 = document.createElement("label");
        label2.setAttribute("for", "priority");
      let span2 = document.createElement("span");
@@ -141,12 +137,27 @@ addBtn.addEventListener("click", function() {
      let select = document.createElement("select");
        select.setAttribute("name","priority");
        select.setAttribute("value", array[i].priority);
+     /* priority value is saved when sorts list.*/
      let option1 = document.createElement("option");
        option1.setAttribute("value", 1);
      let option2 = document.createElement("option");
        option2.setAttribute("value", 2);
      let option3 = document.createElement("option");
        option3.setAttribute("value", 3);
+
+       if(array[i].priority == 1) {
+        option1.setAttribute("value",1)
+        option1.setAttribute("selected", "selected");
+       }
+       else if(array[i].priority == 2) {
+        option2.setAttribute("value",2)
+        option2.setAttribute("selected", "selected");
+       }
+       else if(array[i].priority == 3) {
+        option3.setAttribute("value",3)
+        option3.setAttribute("selected", "selected");
+       }
+
      let lowText = document.createTextNode("Low");
      let moderateText = document.createTextNode("Moderate");
      let highText = document.createTextNode("High");
@@ -166,35 +177,21 @@ addBtn.addEventListener("click", function() {
      /*save button*/
      let saveBtnText = document.createTextNode("save");
      let saveBtn = document.createElement("button");
-     saveBtn.setAttribute("data-item", array.length) /*b/c this happens first, the button will be 0, b/c before we push the item.*/
+     saveBtn.setAttribute("data-item", array.length)
      saveBtn.appendChild(saveBtnText);
      listItem.appendChild(saveBtn);
 
      /*Append all listItems to an orderedList*/
      orderedList.appendChild(listItem);
 
+     /*Makes sure after sort list, can save To Do items.*/
      saveBtn.addEventListener("click", function(e) {
             array[i] = ({description:array[i].description,
                              completed:input.checked,
                               priority:select.value
             })
-            console.log(array);
       })
 
    }
 
-  })
-
-
-
-
-
-  /*sort button*/
-
-
-     /*sort, sort all items in array, destroy whatever dom(or list) is there, destroy list, and reremnder list in new order.To show up in. webStorage and localStorage.*/
-     /*a and b are just comparing any two items. a.priority = 1
-
- })*/
-
-/*Sort Button EventListener*/
+})
